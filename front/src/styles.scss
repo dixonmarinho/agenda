@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+
+// Inclua o núcleo do Material
+@include mat.core();
+
+// Defina um tema predefinido ou personalizado
+$primary: mat.define-palette(mat.$indigo-palette);
+$accent: mat.define-palette(mat.$pink-palette);
+$theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+  )
+));
+
+// Aplique o tema para todos os componentes do Material
+@include mat.all-component-themes($theme);
