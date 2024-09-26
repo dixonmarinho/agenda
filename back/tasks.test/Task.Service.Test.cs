@@ -26,6 +26,13 @@ namespace tasks.test
             return Guid.NewGuid().ToString().Substring(0, 10);
         }
 
+        private async Task<TaskModelDTO> GetFirstDataAsync()
+        {
+            var response = await service.GetAllAsync();
+            var respondeRecord = response.data.FirstOrDefault();
+            return respondeRecord;
+        }
+
 
         /// <summary>
         /// Cria varias tarefas aleatórias
@@ -64,18 +71,18 @@ namespace tasks.test
         public async Task UpdateAsync()
         {
             // Pega um Registro
-            var response = await service.GetAllAsync();
-            var respondeRecord = response.data.FirstOrDefault();
-            if (respondeRecord != null)
+            var response = await GetFirstDataAsync();
+
+            if (response != null)
             {
                 // Atualiza o Registro
-                respondeRecord.Titulo = "TAREFA - " + GetRandonText();
-                respondeRecord.Descricao = "TAREFA AGENDADA - " + GetRandonText();
-                respondeRecord.Data = DateTime.Now.AddMinutes(30);
-                respondeRecord.Status = EnumtasksStatus.Concluido;
+                response.Titulo = "TAREFA - " + GetRandonText();
+                response.Descricao = "TAREFA AGENDADA - " + GetRandonText();
+                response.Data = DateTime.Now.AddMinutes(30);
+                response.Status = EnumtasksStatus.Concluido;
 
                 // Atualiza o Registro
-                var responseUpdate = await service.UpdateAsync(respondeRecord);
+                var responseUpdate = await service.UpdateAsync(response);
                 Assert.True(responseUpdate.success == true, responseUpdate.xmessage);
             }
         }
@@ -87,10 +94,17 @@ namespace tasks.test
         [Fact]
         public async Task DeleteAsync()
         {
-            var response = await service.GetAllAsync();
-            var respondeRecord = response.data.FirstOrDefault();
-            var responseDelete = await service.DeleteAsync(respondeRecord.Id);
+            var response = await GetFirstDataAsync();
+            var responseDelete = await service.DeleteAsync(response.Id);
             Assert.True(responseDelete.success == true, responseDelete.xmessage);
+        }
+
+        [Fact]
+        public async Task GetAsync()
+        {
+            var response = await GetFirstDataAsync();
+            var responseData = await service.GetAsync(response.Id);
+            Assert.True(responseData.success == true, responseData.xmessage);
         }
 
         /// <summary>

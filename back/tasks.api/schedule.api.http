@@ -1,11 +1,35 @@
-@tasks.api_HostAddress = http://localhost:5187
+@tasks.hostAddress = http://localhost:5001
 
-GET {{tasks.api_HostAddress}}/todos/
+POST {{tasks.hostAddress}}/tasks/
+Accept: application/json
+Content-Type: application/json
+{
+  "id": 0,
+  "titulo": "TESTE 1",
+  "descricao": "TESTE 1",
+  "data": "2024-09-26T13:22:38.473Z",
+  "status": 0
+}
+###
+
+PUT {{tasks.hostAddress}}/tasks/
+Accept: application/json
+Content-Type: application/json
+{
+  "id": 15,
+  "titulo": "TESTE 1",
+  "descricao": "TESTE 1",
+  "data": "2024-09-26T13:22:38.473Z",
+  "status": 0
+}
+###
+
+GET {{tasks.hostAddress}}/tasks/14
 Accept: application/json
 
 ###
 
-GET {{tasks.api_HostAddress}}/todos/1
+GET {{tasks.hostAddress}}/todos/1
 Accept: application/json
 
 ###

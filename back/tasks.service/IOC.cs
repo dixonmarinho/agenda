@@ -17,6 +17,7 @@ namespace tasks.service
                 .AddAutoMapService()
                 .DataService()
                 .AddIdentityServices()
+                .AddCustomCors()
                 // Ativando o MVC
                 .AddControllers()
 

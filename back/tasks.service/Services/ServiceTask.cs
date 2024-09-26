@@ -30,6 +30,9 @@ namespace tasks.service.Services
             try
             {
                 var responseData = await repository.GetByIdAsync(id);
+                if (responseData == null)
+                    return Result<bool>.Fail($"Não foi localizado um registro com o id {id} para excluir");
+
                 var response = repository.DeleteAsync(responseData);
                 return Result<bool>.Success();
             }
@@ -39,9 +42,13 @@ namespace tasks.service.Services
             }
         }
 
-        public Task<Result<TaskModelDTO>> GetAsync(TaskModel id)
+        public async Task<Result<TaskModelDTO>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = await repository.GetByIdAsync(id);
+            if (response == null)
+                return Result<TaskModelDTO>.Fail($"Não foi localizado o registro de N.{id}");
+            var mapData = map.Map<TaskModelDTO>(response);
+            return Result<TaskModelDTO>.Success(mapData);
         }
 
         public async Task<Result<List<TaskModelDTO>>> GetAllAsync()
@@ -62,6 +69,9 @@ namespace tasks.service.Services
         // Paginacao
         public async Task<Result<List<TaskModelDTO>>> GetPaginationAsync(int page, int pageSize = 10)
         {
+            if ((page < 1) || (pageSize < 1))
+                return Result<List<TaskModelDTO>>.Fail("Informe valores válidos para paginação : Página (Page) e Quantidade (PageSize)");
+
             var response = await repository.GetPaginationAsync(page, pageSize);
             var mapData = map.Map<List<TaskModelDTO>>(response);
             return Result<List<TaskModelDTO>>.Success(mapData);
