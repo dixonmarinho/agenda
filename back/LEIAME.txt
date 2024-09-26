@@ -1,0 +1,9 @@
+Criando Migracao
+
+1 - Va para a pasta da solucao
+2 - Execute o comando abaixo
+	dotnet ef migrations add Initial --project tasks.data --startup-project tasks.api
+
+Atualizando o banco de dados
+1 - Execute o comando abaixo
+	dotnet ef database update --project tasks.data --startup-project tasks.api
