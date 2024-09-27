@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule  } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskaddComponent } from '../taskadd/taskadd.component';
 
 interface Dado {
   id: number;
@@ -22,7 +24,26 @@ export class TasksComponent {
     // ... adicione mais dados aqui
   ];
 
+  constructor (public dialog : MatDialog) {}
+
+  novo() {
+    this.dialog.open(
+      TaskaddComponent, 
+      {
+        width: '350px',
+        height: '400px',
+        position: { top: '0%', left: 'calc(50% - 250px)' }, // Centraliza e ajusta a posição
+        disableClose: false,      
+      }
+    );
+    
+    // Lógica para editar o dado com o ID fornecido
+    console.log('Novo registro');
+  }
+
+
   editar(id: number) {
+    this.dialog.open(TaskaddComponent);
     // Lógica para editar o dado com o ID fornecido
     console.log(`Editar dado com ID: ${id}`);
   }
