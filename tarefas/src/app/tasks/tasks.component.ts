@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule  } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskaddComponent } from '../taskadd/taskadd.component';
+import { ServiceAPI } from '../../services/service.api';
+import { Task } from '../../Models/task';
+import { MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER } from '@angular/material/autocomplete';
 
 interface Dado {
   id: number;
@@ -24,18 +27,23 @@ export class TasksComponent {
     // ... adicione mais dados aqui
   ];
 
-  constructor (public dialog : MatDialog) {}
+  constructor (public dialog : MatDialog, @Inject('TaskServiceAPI') private service: ServiceAPI<Task>) {
+  }
 
   novo() {
-    this.dialog.open(
-      TaskaddComponent, 
-      {
-        width: '350px',
-        height: '400px',
-        position: { top: '0%', left: 'calc(50% - 250px)' }, // Centraliza e ajusta a posição
-        disableClose: false,      
-      }
-    );
+    this.service.getById(1).subscribe((data) => {
+      console.log(data);
+    });
+
+    // this.dialog.open(
+    //   TaskaddComponent, 
+    //   {
+    //     width: '350px',
+    //     height: '400px',
+    //     position: { top: '0%', left: 'calc(50% - 250px)' }, // Centraliza e ajusta a posição
+    //     disableClose: false,      
+    //   }
+    // );
     
     // Lógica para editar o dado com o ID fornecido
     console.log('Novo registro');
