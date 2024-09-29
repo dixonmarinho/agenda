@@ -30,23 +30,19 @@ export class TasksComponent {
   constructor (public dialog : MatDialog, @Inject('TaskServiceAPI') private service: ServiceAPI<Task>) {
   }
 
-  novo() {
-    this.service.getById(1).subscribe((data) => {
-      console.log(data);
-    });
+  
 
-    // this.dialog.open(
-    //   TaskaddComponent, 
-    //   {
-    //     width: '350px',
-    //     height: '400px',
-    //     position: { top: '0%', left: 'calc(50% - 250px)' }, // Centraliza e ajusta a posição
-    //     disableClose: false,      
-    //   }
-    // );
+  novo() {
+    this.dialog.open(
+       TaskaddComponent, 
+       {
+         width: '350px',
+         height: '400px',
+         position: { top: '0%', left: 'calc(50% - 250px)' }, // Centraliza e ajusta a posição
+         disableClose: false,      
+       }
+     );
     
-    // Lógica para editar o dado com o ID fornecido
-    console.log('Novo registro');
   }
 
 

@@ -3,13 +3,45 @@
     <form>
       <div class="form-group">
         <label for="titulo">Titulo:</label>
-        <input type="text" id="titulo" name="username" [(ngModel)]="titulo" required>
-      </div>
+        <input 
+          type="text" 
+          id="titulo" 
+          name="username" 
+          [(ngModel)]="titulo" 
+          #tituloModel="ngModel" 
+          required 
+          minlength="5"
+          >
+        <!-- Mensagem de erro para o título -->
+        <div *ngIf="tituloModel.invalid && tituloModel.touched" class="error">
+          <small *ngIf="tituloModel.errors?.['required']">O título é obrigatório.</small>
+          <small *ngIf="tituloModel.errors?.['minlength']">O título deve ter no mínimo 5 caracteres.</small>
+        </div>
+    </div>
+
+
       <div class="form-group">
         <label for="descricao">Descrição:</label>
-        <input type="text" id="descricao" name="descricao" [(ngModel)]="descricao" required>
+        <input 
+          type="text" 
+          id="descricao" 
+          name="descricao" 
+          #descricaoModel="ngModel" 
+
+          [(ngModel)]="descricao" 
+          required minlength="5">
+
+        <!-- Mensagem de erro para o título -->
+        <div *ngIf="descricaoModel.invalid && descricaoModel.touched" class="error">
+          <small *ngIf="descricaoModel.errors?.['required']">A descricao é obrigatório.</small>
+          <small *ngIf="descricaoModel.errors?.['minlength']">A descricao deve ter no mínimo 5 caracteres.</small>
+        </div>
+
+
       </div>
-      <button class="btn btn-adicionar">Adicionar</button>
+
+      
+      <button class="btn btn-adicionar" (click)="add()">Adicionar</button>
       <button class="btn btn-cancelar" mat-button mat-dialog-close>Cancelar</button>
     </form>
   </div>   

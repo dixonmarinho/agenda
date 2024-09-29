@@ -4,5 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { TaskaddComponent } from './taskadd/taskadd.component';
 
 export const routes: Routes = [
-    {path : '', component: TasksComponent},
+    {path : 'A', component: TasksComponent},
+    {path : '', component: TaskaddComponent},
 ];
