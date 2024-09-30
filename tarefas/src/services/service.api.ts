@@ -6,7 +6,7 @@ import { Result } from '../interfaces/Result';
 
 
 export interface PaginatedResponse<T> {
-    content: Result<T>;
+    data: Result<T>;
     totalElements: number;
     totalPages: number;
     size: number;
@@ -23,12 +23,12 @@ export class ServiceAPI<T> {
         this.urlapi = `${environment.baseurl}/${endpoint}`;
     }
 
-    list(page: number, size: number): Observable<Result<T>> {
+    list(page: number, size: number): Observable<PaginatedResponse<T>> {
         let params = new HttpParams();
         params = params.append('page', page.toString());
         params = params.append('pagesize', size.toString());
-        //return this.http.get<PaginatedResponse<T>>(`${this.urlapi}/List`, { params });
-        return this.http.get<Result<T>>(`${this.urlapi}/List`, { params });
+        return this.http.get<PaginatedResponse<T>>(`${this.urlapi}/List`, { params });
+        //return this.http.get<Result<T>>(`${this.urlapi}/List`, { params });
     }
 
     getById(id: number): Observable<T> {

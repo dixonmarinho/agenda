@@ -1,51 +1,66 @@
 .botao-direita {
-    text-align: right;
-  }
-  
+  text-align: right;
+}
+
+.centered-div {
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
   .centered-div {
-    width: 80%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
+    width: 90%;
+    /* Ajusta a largura da div em telas menores */
   }
-  
+
   table {
-    width: 80%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    width: 100%;
+    /* A tabela ocupa toda a largura disponível */
+    overflow-x: auto;
+    /* Adiciona barra de rolagem horizontal se necessário */
+    display: block;
+    /* Corrige problemas de dimensionamento em alguns navegadores */
   }
-  
+
   th,
   td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    white-space: nowrap;
+    /* Impede que o texto dentro das células quebre em várias linhas */
   }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  /* Estilos responsivos */
-  @media (max-width: 768px) {
-    .centered-div {
-      width: 90%; /* Ajusta a largura da div em telas menores */
-    }
-  
-    table {
-      width: 100%; /* A tabela ocupa toda a largura disponível */
-      overflow-x: auto; /* Adiciona barra de rolagem horizontal se necessário */
-      display: block; /* Corrige problemas de dimensionamento em alguns navegadores */
-    }
-  
-    th,
-    td {
-      white-space: nowrap; /* Impede que o texto dentro das células quebre em várias linhas */
-    }
-  }
+}
+
+.paginator {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.paginator button {
+  margin: 0 5px;
+  padding: 8px 12px;
+}

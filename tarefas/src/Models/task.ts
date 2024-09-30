@@ -6,3 +6,4 @@ export interface Task {
     status?: number
 }
 
+export type Tasks = Task[];
