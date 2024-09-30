@@ -2,21 +2,22 @@
 <div class="centered-div">
     <div class="botao-direita">
         <button class="btn btn-editar" (click)="novo()">Novo</button>
+        <button class="btn btn-editar" (click)="refreshGrid()">Atualizar</button>
     </div>
     
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
-                <th>Valor</th>
+                <th>Titulo</th>
+                <th>Descricao</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let dado of dados">
                 <td>{{ dado.id }}</td>
-                <td>{{ dado.nome }}</td>
-                <td>{{ dado.valor | currency:'BRL' }}</td>
+                <td>{{ dado.titulo }}</td>
+                <td>{{ dado.descricao }}</td>
                 <td>
                     <div class="botao-direita">
                         <button class="btn btn-editar" (click)="editar(dado.id)">Editar</button>

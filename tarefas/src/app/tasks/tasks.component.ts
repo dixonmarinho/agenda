@@ -2,15 +2,12 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule  } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskaddComponent } from '../taskadd/taskadd.component';
-import { ServiceAPI } from '../../services/service.api';
+import { ServiceAPI, PaginatedResponse } from '../../services/service.api';
 import { Task } from '../../Models/task';
+import { Result } from '../../interfaces/Result';
 import { MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER } from '@angular/material/autocomplete';
 
-interface Dado {
-  id: number;
-  nome: string;
-  valor: number;
-}
+
 @Component({
   selector: 'app-tasks',
   standalone: true,
@@ -20,17 +17,19 @@ interface Dado {
 })
 
 export class TasksComponent {
-  dados: Dado[] = [
-    { id: 1, nome: 'Produto A', valor: 10.99 },
-    { id: 2, nome: 'Produto B', valor: 25.50 },
-    { id: 3, nome: 'Produto C', valor: 5.75 },
-    // ... adicione mais dados aqui
-  ];
+  //dados: Task[] = [{ id: 1, titulo: 'Produto A', descricao: 'AA' }];
+  dados: Task[] = [];
 
   constructor (public dialog : MatDialog, @Inject('TaskServiceAPI') private service: ServiceAPI<Task>) {
   }
-
-  
+ 
+  refreshGrid(){
+    this.service.list(1, 3)
+    .subscribe((paginationresponse : Result<Task>) => {
+      console.log(paginationresponse.data)
+      this.dados = paginationresponse.data;
+    });
+  }
 
   novo() {
     this.dialog.open(

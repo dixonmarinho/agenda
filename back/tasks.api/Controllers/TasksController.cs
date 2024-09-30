@@ -48,9 +48,9 @@ namespace tasks.api.Controllers
 
 
         [HttpGet("List")]
-        public async Task<IActionResult> GetPaginationAsync([FromQuery] int page, [FromQuery] int pageSize)
+        public async Task<IActionResult> GetPaginationAsync([FromQuery] int page, [FromQuery] int pagesize)
         {
-            var response = await service.GetPaginationAsync(page, pageSize);
+            var response = await service.GetPaginationAsync(page, pagesize);
             return Ok(response);
         }
 

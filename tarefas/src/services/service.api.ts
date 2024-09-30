@@ -2,10 +2,11 @@ import { Injectable, Inject, NgModule } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from "../environments/environment";
+import { Result } from '../interfaces/Result';
 
 
-interface PaginatedResponse<T> {
-    content: T[];
+export interface PaginatedResponse<T> {
+    content: Result<T>;
     totalElements: number;
     totalPages: number;
     size: number;
@@ -22,11 +23,12 @@ export class ServiceAPI<T> {
         this.urlapi = `${environment.baseurl}/${endpoint}`;
     }
 
-    list(page: number, size: number): Observable<PaginatedResponse<T>> {
+    list(page: number, size: number): Observable<Result<T>> {
         let params = new HttpParams();
         params = params.append('page', page.toString());
-        params = params.append('size', size.toString());
-        return this.http.get<PaginatedResponse<T>>(`${this.urlapi}`, { params });
+        params = params.append('pagesize', size.toString());
+        //return this.http.get<PaginatedResponse<T>>(`${this.urlapi}/List`, { params });
+        return this.http.get<Result<T>>(`${this.urlapi}/List`, { params });
     }
 
     getById(id: number): Observable<T> {
