@@ -1,0 +1,48 @@
+<!-- Seu código existente -->
+<div class="centered-div">
+    <div >
+        <button class="btn btn-editar" (click)="novo()">Novo</button>
+        <button class="btn btn-editar" (click)="refreshGrid()">Atualizar</button>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Descricao</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dado of paginatedData">
+                <td>{{ dado.id }}</td>
+                <td>{{ dado.titulo }}</td>
+                <td>{{ dado.descricao }}</td>
+                <td>{{ getStatus(dado.status) }}</td>
+                <td>
+                    <div class="botao-direita">
+                        <button 
+                            class="btn btn-editar" 
+                            (click)="editar(dado.id)"
+                            *ngIf="dado.status == 0"
+                        >Editar</button>
+                        <button 
+                            class="btn btn-excluir" 
+                            (click)="excluir(dado.id)"
+                            *ngIf="dado.status == 0"
+                        >Excluir</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <!-- Paginador -->
+    <div class="paginator">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Próximo</button>
+    </div>
+</div>

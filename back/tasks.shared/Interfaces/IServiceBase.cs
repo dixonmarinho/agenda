@@ -9,6 +9,6 @@ namespace tasks.shared.Interfaces
         Task<Result<bool>> DeleteAsync(int id);
         Task<Result<T>> GetAsync(int id);
         Task<Result<List<T>>> GetAllAsync();
-        Task<Result<Pagination<TaskModelDTO>>> GetPaginationAsync(int page, int pageSize);
+        Task<Result<List<TaskModelDTO>>> GetPaginationAsync(int page, int pageSize);
     }
 }
