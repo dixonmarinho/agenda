@@ -43,8 +43,12 @@ export class TasksComponent {
 
   novo() {
     this.dialog.open(
-      TaskaddComponent,
+      TaskaddComponent, 
       {
+        data:{
+          service : this.service
+        },
+ 
         width: '350px',
         height: '400px',
         position: { top: '0%', left: 'calc(50% - 250px)' }, // Centraliza e ajusta a posição
