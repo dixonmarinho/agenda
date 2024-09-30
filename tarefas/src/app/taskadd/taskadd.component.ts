@@ -4,6 +4,7 @@ import { ServiceAPI } from '../../services/service.api';
 import { Task } from '../../Models/task';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ServiceDialog } from '../../services/service.dialog';
 
 @Component({
   selector: 'app-taskadd',
@@ -17,21 +18,35 @@ export class TaskaddComponent implements OnInit {
   titulo:string = "NOVO TAREFA";
   descricao:string = "DESCRICAO DA TAREFA";
 
-  constructor(@Inject('TaskServiceAPI') private service: ServiceAPI<Task>) { }
+  constructor(
+    @Inject('TaskServiceAPI') private service: ServiceAPI<Task>,
+    private dialog: ServiceDialog
+  ) { }
  
   ngOnInit(): void { }
 
   add(){
-    const data: Task = {id: 0, titulo: this.titulo, descricao:  this.descricao};
-    this.service.create(data)
-    .subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );    
+
+    this.dialog.showConfirmation('Adicionar essa tarefa ?', 'Esta ação não pode ser desfeita.')
+      .then((confirmed) => {
+        if (confirmed) {
+
+          const data: Task = {id: 0, titulo: this.titulo, descricao:  this.descricao};
+          this.service.create(data)
+          .subscribe(
+            (res) => {
+              console.log(res);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );    
+      
+          this.dialog.showSuccess('Ação confirmada!');
+        } else {
+          this.dialog.showWarning('Ação cancelada.');
+        }
+      });
   }
 
   close(){
